@@ -16,15 +16,24 @@ WHERE p.name = 'Rufflet';
 
 
 # What are the names of the pokemon that belong to the trainer with trainerID 303?
-#concat inner join
+# concat inner join one to many
+# Select is the outcome
 SELECT t.trainername as "Trainer", group_concat(p.name) as "Pokemons"
+# the names from pokemon.pokemons
 FROM pokemon.pokemons p
+    # we join to the pokemon_trainer table (so the pokmons have names with their ids
   join pokemon.pokemon_trainer pt
   on pt.pokemon_id = p.id
+    # Then we do the same for the trainers, to match their names to IDs
 JOIN pokemon.trainers t
 on pt.trainerID = t.trainerID
+# on this specific trainer
 WHERE t.trainerID = 303
+# group by the trainer name
 group by t.trainername;
+
+# pt shows ownership
+# using trainer and pokemon table to pull the names of the ids on the pt table
 
 # How many pokemon have a secondary type Poison
 SELECT
@@ -43,6 +52,10 @@ GROUP BY ty.name;
 # how many trainers have at least 1 level 100 pokemon
 # count num of trainers
 # pokelevel = 100
+
+
+
+
 
 
 
