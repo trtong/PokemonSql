@@ -53,13 +53,31 @@ GROUP BY ty.name;
 # count num of trainers
 # pokelevel = 100
 
-
-
-
+# get trainer ID
+# counting the pokemon level where =plevel = 100 group by trainerID
+SELECT pt.trainerID, count(pt.pokelevel)
+from pokemon.pokemon_trainer pt
+where (pokelevel = 100)
+group by (pt.trainerID);
 
 
 
 
 # How many pokemon only belong to one trainer and no other?
-SELECT count(distinct pt.trainerID)
-from pokemon.pokemon_trainer pt;
+# many to many
+# but we only want the ones with 1 pokemon
+# count pokemon ID
+SELECT count(1) from
+(SELECT distinct Count(pt.trainerID), pt.pokemon_id
+from pokemon.pokemon_trainer pt
+#count the pokemon with distinct trainer ID
+#group by is what the count/sum/avg etc is working on
+GROUP BY pt.pokemon_id
+having Count(*) = 1) pokemons
+
+# look for trainers who only have 1 pokemon that no other trainers have
+
+
+
+
+
